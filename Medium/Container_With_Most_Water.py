@@ -8,11 +8,15 @@ class Solution:
         :type height: List[int]
         :rtype: int
         """
-        a = len(height)
+        x = 0
+        y = len(height) - 1
         m = 0
-        for i in range(0, a - 1):
-            for j in range(i, a):
-                x = min(height[i], height[j])
-                if (x * (j - i) > m):
-                    m = x * (j - i)
+        while x < y:
+            a = min(height[x], height[y]) * (y - x)
+            if a > m:
+                m = a
+            if height[x] > height[y]:
+                y -= 1
+            else:
+                x += 1
         return m
