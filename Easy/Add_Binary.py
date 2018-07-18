@@ -28,9 +28,7 @@ class Solution(object):
             if a % 10 == 1 and b % 10 == 1:
                 r += c * 10 ** n
                 c = 1
-            elif (a % 10 == 1 or b % 10 == 1) and c == 1:
-                pass
-            else:
+            elif (a % 10 == 0 and b % 10 == 0) or c == 0:
                 r += (a % 10 + b % 10 + c) * 10 ** n
                 if c == 1:
                     c = 0
