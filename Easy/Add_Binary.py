@@ -24,12 +24,11 @@ class Solution(object):
         b = int(b)
         r = 0
         c = 0
-        while a * b != 0:
+        while a + b != 0:
             if a % 10 == 1 and b % 10 == 1:
                 r += c * 10 ** n
                 c = 1
             elif (a % 10 == 1 or b % 10 == 1) and c == 1:
-                c = 0
                 pass
             else:
                 r += (a % 10 + b % 10 + c) * 10 ** n
@@ -39,7 +38,5 @@ class Solution(object):
             b = int(b / 10)
             n += 1
         if c == 1:
-            r += int(Solution.addBinary(self,str(a + b), c)) * 10 ** n
-        else:
-            r += (a + b) * 10 ** n
+            r += c * 10 ** n
         return str(r)
