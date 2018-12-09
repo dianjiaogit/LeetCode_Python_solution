@@ -32,15 +32,28 @@ class Solution:
         :type A: List[int]
         :rtype: bool
         """
-        A.sort()
-        while len(A) > 0:
-            x = A[0]
-            A.pop(0)
-            try:
-                if x >= 0:
-                    A.remove(x * 2)
+        d = {}
+        for i in A:
+            if i in d:
+                d[i] += 1
+            else:
+                d[i] = 1
+        k = list(d.keys())
+        k.sort()
+        for i in k:
+            x = d[i]
+            if i > 0 and i * 2 in d:
+                d[i * 2] -= d[i]
+                d[i] = 0
+            elif i < 0 and i / 2 in d:
+                d[i / 2] -= d[i]
+                d[i] = 0
+            elif i == 0:
+                if d[i] % 2 == 0:
+                    d[i] = 0
                 else:
-                    A.remove(x / 2)
-            except:
+                    return False
+        for i in d.values():
+            if i != 0:
                 return False
         return True
