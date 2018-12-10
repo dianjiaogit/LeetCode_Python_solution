@@ -27,3 +27,38 @@
 # 1 <= N <= 10^9
 # 2 <= A <= 40000
 # 2 <= B <= 40000
+
+
+class Solution(object):
+    def nthMagicalNumber(self, N, A, B):
+        """
+        :type N: int
+        :type A: int
+        :type B: int
+        :rtype: int
+        """
+        x = A
+        y = B
+        if x > y:
+            greater = x
+            smaller = y
+        else:
+            greater = y
+            smaller = x
+        while(True):
+            if((greater % x == 0) and (greater % y == 0)):
+                lcm = greater
+                break
+            greater += 1
+        if A == B:
+            return (N * A) % (10 ** 9 + 7)
+        for i in range(1,smaller + 1):
+            if((x % i == 0) and (y % i == 0)):
+                hcf = i
+        n = int(N / 2) * min(A, B)
+        a = int(n / A) + int(n / B) - int(n / lcm)
+        while a < N:
+            n += hcf
+            if n % A == 0 or n % B == 0:
+                a += 1
+        return n % (10 ** 9 + 7)
