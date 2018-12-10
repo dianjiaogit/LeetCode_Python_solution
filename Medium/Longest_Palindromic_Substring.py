@@ -16,11 +16,24 @@ class Solution:
         :type s: str
         :rtype: str
         """
-        i = 0
-        while (i < len(s)):
-            for j in range (0, i + 1):
-                x = s[j : (len(s) - i + j)]
-                a = x[::-1]
-                if (x == a):
-                    return x
-            i = i + 1
+        a = " "
+        result = ""
+        for i in s:
+            a += i
+            a += ' '
+        for i in range (1, len(a) - 1):
+            j = int(len(result) / 2)
+            check = True
+            while j <= i and check:
+                try:
+                    before = a[(i - j) : (i + j + 1)]
+                    reverse = before[::-1]
+                    if before == reverse:                       
+                        if len(before) > len(result):
+                            result = before
+                    else:
+                        check = False
+                except:
+                    check = False
+                j += 1
+        return result[1::2]
