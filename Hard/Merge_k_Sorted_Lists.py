@@ -12,42 +12,40 @@
 
 
 # Definition for singly-linked list.
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
-
-def mergeKLists(self, lists):
-    a = None
-    while len(lists) > 0:
-        smallest = 10000000000000000000
-        fromi = 0
-        i = 0
-        #print("New loop")
-        while i < len(lists):
-            if lists[i] == None:
-                lists.remove(lists[i])
-                #print("REMOVE")
-                continue
-            #print(lists[i].val)
-            #print(len(lists))
-            #print(i)
-            if lists[i].val < smallest:
-                #print(lists[i].val)
-                smallest = lists[i].val
-                fromi = i
-            i += 1
-        #print(smallest)
-        if smallest != 10000000000000000000:
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        a = None
+        dic = {}
+        for i in lists:
+            if i != None:
+                if i.val not in dic.keys():
+                    dic[i.val] = [i]
+                else:
+                    dic[i.val].append(i)
+        while len(dic) > 0:
+            smallest = min(dic.keys())
             b = ListNode(smallest)
-            lists[fromi] = lists[fromi].next
+            x = dic[smallest][0]
+            if x.next != None:
+                if x.next.val in dic.keys():
+                    dic[x.next.val].append(x.next)
+                else:
+                    dic[x.next.val] = [x.next]
+            if len(dic[smallest]) == 1:
+                dic.pop(smallest)
+            else:
+                dic[smallest].pop(0)  
             b.next = a
             a = b
-    result = None
-    while a != None:
-        b = ListNode(a.val)
-        b.next = result
-        result = b
-        a = a.next
-    return result
+        result = None
+        while a != None:
+            b = ListNode(a.val)
+            b.next = result
+            result = b
+            a = a.next
+        return result
