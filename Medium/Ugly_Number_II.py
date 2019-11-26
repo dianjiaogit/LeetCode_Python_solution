@@ -15,32 +15,17 @@
 
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
-        if n == 1:
-            return 1
-        n = n - 1
-        primes = set()
-        factors = {2,3,5}
-        m = 2
-        while True:
-            #print(m)
-            #print(primes)
-            check1 = 0
-            for i in primes:
-                if m % i == 0:
-                    check1 = 1
-                    break
-            if check1 == 1:
-                m += 1
-                continue
-            check2 = 0
-            for i in factors:
-                if m % i == 0:
-                    check2 = 1
-                    break
-            if check2 == 0:
-                primes.add(m)
-            else:
-                n = n - 1
-                if n == 0:
-                    return m
+        m = 0
+        while n > 0:
             m += 1
+            if Solution.check(m):
+                n -= 1
+        return m
+    def check(n):
+        if n == 1:
+            return True
+        factors = {5,3,2}
+        for i in factors:
+            if n % i == 0:
+                return Solution.check(n / i)
+        return False
