@@ -15,17 +15,19 @@
 
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
-        m = 0
-        while n > 0:
-            m += 1
-            if Solution.check(m):
-                n -= 1
-        return m
-    def check(n):
-        if n == 1:
-            return True
-        factors = {5,3,2}
-        for i in factors:
-            if n % i == 0:
-                return Solution.check(n / i)
-        return False
+        lst = [1]
+        i2 = 0
+        i3 = 0
+        i5 = 0
+        for i in range (1, n):
+            smallest = min(lst[i2] * 2,
+                           lst[i3] * 3,
+                           lst[i5] * 5)
+            lst.append(smallest)
+            if smallest == lst[i2] * 2:
+                i2 += 1
+            if smallest == lst[i3] * 3:
+                i3 += 1
+            if smallest == lst[i5] * 5:
+                i5 += 1
+        return lst[-1]
