@@ -25,6 +25,8 @@
 
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        if m == 1 or n == 1:
-            return 1
-        return Solution.uniquePaths(self, m - 1, n) + Solution.uniquePaths(self, m, n - 1)
+        a = [[1 for i in range(m)] for i in range(n)]
+        for i in range (1, n):
+            for j in range (1, m):
+                a[i][j] = a[i][j - 1] + a[i - 1][j]
+        return a[n - 1][m - 1]
